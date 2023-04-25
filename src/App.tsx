@@ -46,18 +46,6 @@ function App() {
         setTodolists([...todolists]);
     }
 
-    const removeTask = (id: string, todoListId: string) => {
-        tasks[todoListId] = tasks[todoListId].filter(t => t.id !== id)
-        setTasks({...tasks})
-    }
-
-    const removeTodoList = (todoListId: string) => {
-        todolists = todolists.filter(t => t.id !== todoListId)
-        setTodolists([...todolists])
-        delete tasks[todoListId]
-        setTasks({...tasks})
-    }
-
     const addTask = (newTaskTitle: string, todoListId: string) => {
         let newTask = {id: v1(), title: newTaskTitle, isDone: false}
         tasks[todoListId] = [newTask, ...tasks[todoListId]]
@@ -68,6 +56,18 @@ function App() {
         let todolist: TodolistType = {id: v1(), title, filter: "all"}
         setTodolists([todolist, ...todolists])
         setTasks({...tasks, [todolist.id]: []})
+    }
+
+    const removeTask = (id: string, todoListId: string) => {
+        tasks[todoListId] = tasks[todoListId].filter(t => t.id !== id)
+        setTasks({...tasks})
+    }
+
+    const removeTodoList = (todoListId: string) => {
+        todolists = todolists.filter(t => t.id !== todoListId)
+        setTodolists([...todolists])
+        delete tasks[todoListId]
+        setTasks({...tasks})
     }
 
     const changeTaskStatus = (todoListId: string, taskId: string, isDone: boolean ) => {
