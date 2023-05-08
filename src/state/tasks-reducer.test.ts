@@ -49,7 +49,7 @@ test('correct task should be added to correct array', () => {
 
 test('status of specified task should be changed', () => {
 
-    const action = changeTaskStatusAC('2', false, 'todolistId2')
+    const action = changeTaskStatusAC('todolistId2','2', false, )
     const endState = tasksReducer(startState, action)
 
     expect(endState['todolistId1'].length).toBe(3)
@@ -62,7 +62,7 @@ test('status of specified task should be changed', () => {
 
 test('title of specified task should be changed', () => {
 
-    const action = changeTaskTitleAC('1', 'Tailwind', 'todolistId1')
+    const action = changeTaskTitleAC('todolistId1','1', 'Tailwind', )
     const endState = tasksReducer(startState, action)
 
     expect(endState['todolistId1'].length).toBe(3)
