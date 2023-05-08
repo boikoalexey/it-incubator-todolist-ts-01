@@ -11,7 +11,6 @@ import {
     changeTodolistTitleAC,
     removeTodolistAC
 } from "./state/todolists-reducer";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/tasks-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store";
 
@@ -28,13 +27,8 @@ export type TasksStateType = {
 
 function AppWithRedux() {
     const todolists = useSelector<AppRootStateType, Array<TodolistType>>(state => state.todolists)
-    const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
     const dispatch = useDispatch()
 
-    const addTask = (newTaskTitle: string, todolistId: string) => dispatch(addTaskAC(newTaskTitle, todolistId))
-    const removeTask = (id: string, todolistId: string) => dispatch(removeTaskAC(id, todolistId))
-    const changeTaskTitle = (todolistId: string, taskId: string, title: string) => dispatch(changeTaskTitleAC(taskId, title, todolistId))
-    const changeTaskStatus = (todolistId: string, taskId: string, isDone: boolean) => dispatch(changeTaskStatusAC(todolistId, taskId, isDone))
     const addTodolist = (title: string) => dispatch(addTodolistAC(title))
     const removeTodolist = (todolistId: string) => dispatch(removeTodolistAC(todolistId))
     const changeTodolistTitle = (todolistId: string, title: string) => dispatch(changeTodolistTitleAC(todolistId, title))
@@ -64,33 +58,16 @@ function AppWithRedux() {
                 <Grid container spacing={5}>
                     {
                         todolists.map((tl) => {
-                            const getFilteredTasks = (tasks: Array<TaskType>) => {
-                                switch (tl.filter) {
-                                    case "active":
-                                        return tasks.filter((task: TaskType) => !task.isDone)
-                                    case "completed":
-                                        return tasks.filter((task: TaskType) => task.isDone)
-                                    default:
-                                        return tasks
-                                }
-                            }
-                            const filteredTasks: Array<TaskType> = getFilteredTasks(tasks[tl.id])
-
                             return <Grid item>
                                 <Paper style={{padding: '10px'}}>
                                     <TodoList
                                         key={tl.id}
                                         todolistId={tl.id}
                                         title={tl.title}
-                                        tasks={filteredTasks}
-                                        addItem={addTask}
-                                        removeTask={removeTask}
-                                        removeTodoList={removeTodolist}
-                                        changeFilter={changeTodolistFilter}
-                                        changeTaskStatus={changeTaskStatus}
-                                        changeTaskTitle={changeTaskTitle}
-                                        changeTodolistTitle={changeTodolistTitle}
                                         filter={tl.filter}
+                                        removeTodoList={removeTodolist}
+                                        changeTodolistTitle={changeTodolistTitle}
+                                        changeFilter={changeTodolistFilter}
                                     />
                                 </Paper>
                             </Grid>
