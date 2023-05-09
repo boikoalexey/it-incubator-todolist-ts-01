@@ -1,20 +1,20 @@
-import React from 'react';
-import './App.css';
-import TodoList from './components/TodoList/TodoList';
-import {TaskType} from './components/TodoList/TodoList';
-import AddItemForm from "./components/AddItemForm";
-import {AppBar, IconButton, Toolbar, Typography, Button, Container, Grid, Paper} from "@material-ui/core";
-import MenuIcon from '@material-ui/icons/Menu';
+import React from 'react'
+import './App.css'
+import TodoList from './components/TodoList/TodoList'
+import { TaskType } from './components/TodoList/TodoList'
+import AddItemForm from './components/AddItemForm'
+import { AppBar, IconButton, Toolbar, Typography, Button, Container, Grid, Paper } from '@material-ui/core'
+import MenuIcon from '@material-ui/icons/Menu'
 import {
     addTodolistAC,
     changeTodolistFilterAC,
     changeTodolistTitleAC,
     removeTodolistAC
-} from "./state/todolists-reducer";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "./state/store";
+} from './state/todolists-reducer'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppRootStateType } from './state/store'
 
-export type FilterValuesType = "all" | "active" | "completed"
+export type FilterValuesType = 'all' | 'active' | 'completed'
 export type TodolistType = {
     id: string
     title: string
@@ -51,15 +51,15 @@ function AppWithRedux() {
                     <Button color="inherit">Login</Button>
                 </Toolbar>
             </AppBar>
-            <Container fixed style={{marginTop: '50px'}}>
-                <Grid container style={{margin: '0 0 20px 10px'}}>
+            <Container fixed style={{ marginTop: '50px' }}>
+                <Grid container style={{ margin: '0 0 20px 10px' }}>
                     <AddItemForm addItem={addTodolist}/>
                 </Grid>
                 <Grid container spacing={5}>
                     {
                         todolists.map((tl) => {
-                            return <Grid item>
-                                <Paper style={{padding: '10px'}}>
+                            return <Grid item key={tl.id}>
+                                <Paper style={{ padding: '10px' }}>
                                     <TodoList
                                         key={tl.id}
                                         todolistId={tl.id}
@@ -76,7 +76,7 @@ function AppWithRedux() {
                 </Grid>
             </Container>
         </div>
-    );
+    )
 }
 
-export default AppWithRedux;
+export default AppWithRedux
