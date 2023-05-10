@@ -1,13 +1,13 @@
 import React, { useCallback } from 'react'
-import AddItemForm from '../AddItemForm'
+import AddItemForm from '../common/AddItemForm/AddItemForm'
 import { FilterValuesType } from '../../AppWithRedux'
-import { EditableSpan } from '../EditableSpan'
+import { EditableSpan } from '../common/EditableSpan/EditableSpan'
 import { Button, IconButton } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppRootStateType } from '../../state/store'
 import { addTaskAC } from '../../state/tasks-reducer'
-import { Task } from './Task'
+import { Task } from './Task/Task'
 
 export type TodoListPropsType = {
     todolistId: string

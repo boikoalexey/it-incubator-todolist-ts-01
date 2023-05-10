@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 import './App.css'
 import TodoList from './components/TodoList/TodoList'
 import { TaskType } from './components/TodoList/TodoList'
-import AddItemForm from './components/AddItemForm'
+import AddItemForm from './components/common/AddItemForm/AddItemForm'
 import { AppBar, IconButton, Toolbar, Typography, Button, Container, Grid, Paper } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 import {

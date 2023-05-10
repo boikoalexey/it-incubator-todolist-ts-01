@@ -21,6 +21,7 @@ module.exports = {
         "object-curly-spacing": ["warn", "always"],
         "space-infix-ops": "warn",
         "indent": ["warn", 4, { "SwitchCase": 1 }],
+        "no-multi-spaces": "warn",
         "vars-on-top": "warn",
         "array-bracket-spacing": ["warn", "always"],
         "block-spacing": ["warn", "always"],
