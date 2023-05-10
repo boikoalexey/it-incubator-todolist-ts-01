@@ -1,25 +1,28 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import {Button, TextField} from "@material-ui/core";
+import React, { ChangeEvent, KeyboardEvent, useState } from 'react'
+import { Button, TextField } from '@material-ui/core'
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
 }
 
-const AddItemForm = (props: AddItemFormPropsType) => {
-    const [newTaskTitle, setTitle] = useState<string>('')
-    const [error, setError] = useState<string | null>(null)
+const AddItemForm = React.memo((props: AddItemFormPropsType) => {
+
+    const [ newTaskTitle, setTitle ] = useState<string>('')
+    const [ error, setError ] = useState<string | null>(null)
 
     const addTask = () => {
-        if (newTaskTitle.trim() !== "") {
+        if (newTaskTitle.trim() !== '') {
             props.addItem(newTaskTitle)
             setTitle('')
         } else {
-            setError("Title is required")
+            setError('Title is required')
         }
     }
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => setTitle(event.currentTarget.value)
     const onKeyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-        setError(null)
+        if (error !== null) {
+            setError(null)
+        }
         event.key === 'Enter' && addTask()
     }
     return (
@@ -28,15 +31,16 @@ const AddItemForm = (props: AddItemFormPropsType) => {
                 value={newTaskTitle}
                 onChange={onChangeHandler}
                 onKeyDown={onKeyDownHandler}
-                variant={"outlined"}
+                variant={'outlined'}
                 size="small"
-                label={"Type title"}
+                label={'Type title'}
                 error={!!error}
                 helperText={error}
             />
             <Button onClick={addTask} variant={'contained'} color="primary">+</Button>
         </div>
-    );
-};
+    )
+})
 
-export default AddItemForm;
+AddItemForm.displayName = 'AddItemForm'
+export default AddItemForm

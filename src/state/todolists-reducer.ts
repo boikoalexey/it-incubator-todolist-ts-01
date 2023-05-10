@@ -31,7 +31,7 @@ export const todolistID2 = v1()
 
 const initialState: Array<TodolistType> = [
     { id: todolistID1, title: 'What to learn', filter: 'all' },
-    { id: todolistID2, title: 'What to buy', filter: 'all' },
+    { id: todolistID2, title: 'What to buy', filter: 'all' }
 ]
 
 export const todolistsReducer = (state: Array<TodolistType> = initialState, action: ActionType): Array<TodolistType> => {
@@ -40,7 +40,7 @@ export const todolistsReducer = (state: Array<TodolistType> = initialState, acti
             return state.filter(t => t.id !== action.id)
         case 'ADD-TODOLIST':
             const newTodolist: TodolistType = { id: action.todolistId, title: action.title, filter: 'all' }
-            return [newTodolist, ...state]
+            return [ newTodolist, ...state ]
         case 'CHANGE-TODOLIST-TITLE':
             return state.map(f => f.id === action.id ? { ...f, title: action.title } : f)
         case 'CHANGE-TODOLIST-FILTER':

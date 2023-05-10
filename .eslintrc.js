@@ -1,7 +1,6 @@
 module.exports = {
     "env": {
         "browser": true,
-        "es2021": true
     },
     "extends": "plugin:react/recommended",
     "overrides": [
@@ -16,11 +15,25 @@ module.exports = {
         "@typescript-eslint"
     ],
     "rules": {
-        "semi": ["error", "never"],
-        "quotes": ["error", "single"],
-        "space-in-parens": ["error", "never"],
-        "object-curly-spacing": ["error", "always"],
-        "space-infix-ops": "error",
-        "indent": ["error", 4, { "SwitchCase": 1 }],
+        "semi": ["warn", "never"],
+        "quotes": ["warn", "single"],
+        "space-in-parens": ["warn", "never"],
+        "object-curly-spacing": ["warn", "always"],
+        "space-infix-ops": "warn",
+        "indent": ["warn", 4, { "SwitchCase": 1 }],
+        "vars-on-top": "warn",
+        "array-bracket-spacing": ["warn", "always"],
+        "block-spacing": ["warn", "always"],
+        "brace-style": ["warn", "1tbs", { "allowSingleLine": false }],
+        "camelcase": "warn",
+        "comma-spacing": ["warn", { "before": false, "after": true }],
+        "comma-dangle": ["warn", "never"],
+        "computed-property-spacing": ["warn", "never"],
+        "eol-last": "error",
+        "func-style": ["warn", "expression", { "allowArrowFunctions": true }],
+        "jsx-quotes": ["warn", "prefer-double"],
+        "no-mixed-spaces-and-tabs": "warn",
+        "no-multiple-empty-lines": "warn",
+        "no-trailing-spaces": "warn",
     }
 };
