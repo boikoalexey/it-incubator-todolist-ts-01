@@ -1,6 +1,10 @@
+import React from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
 import { ReduxStoreProviderDecorator } from '../../../stories/decorators/ReduxStoreProviderDecorator'
 import { Task } from './Task'
+import { useSelector } from 'react-redux'
+import { AppRootStateType } from '../../../state/store'
+import { TaskType } from '../TodoList'
 
 const meta: Meta<typeof Task> = {
     title: 'TODOLISTS/Task',
@@ -8,18 +12,19 @@ const meta: Meta<typeof Task> = {
     tags: [ 'autodocs' ],
     decorators: [ ReduxStoreProviderDecorator ],
     args: {
-        task: { id: '12wsdewfijdei', title: 'JS', isDone: false },
-        todolistId: 'fgdosrg8rgjuh'
+        task: { id: '12wsdewfijdei', title: 'HTML&CSS', isDone: true },
+        todolistId: 'todolistId1'
     }
 }
 
 export default meta
 type Story = StoryObj<typeof Task>
 
-export const TaskIsNotDoneStory: Story = {}
+const TaskExample = () => {
+    const task = useSelector<AppRootStateType, TaskType>(state => state.tasks['todolistId1'][0])
+    return <Task todolistId={'todolistId1'} task={task}/>
+}
 
-export const TaskIsDoneStory: Story = {
-    args: {
-        task: { id: '12wsdewfijdei2343', title: 'CSS', isDone: true }
-    }
+export const TaskWithReduxStory: Story = {
+    render: () => <TaskExample/>
 }

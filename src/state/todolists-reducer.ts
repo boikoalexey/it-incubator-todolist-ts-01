@@ -21,7 +21,7 @@ type ChangeTodolistTitleActionType = {
 type ChangeTodolistFilterActionType = {
     type: 'CHANGE-TODOLIST-FILTER',
     id: string,
-    filter:  FilterValuesType
+    filter: FilterValuesType
 }
 
 type ActionType = RemoveTodolistActionType | AddTodolistActionType | ChangeTodolistTitleActionType | ChangeTodolistFilterActionType

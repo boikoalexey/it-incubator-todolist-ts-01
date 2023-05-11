@@ -6,18 +6,18 @@ import {
     todolistsReducer
 } from './todolists-reducer'
 import { v1 } from 'uuid'
-import {FilterValuesType, TodolistType} from '../AppWithRedux'
+import { FilterValuesType, TodolistType } from '../AppWithRedux'
 
 let todolistId1: string
 let todolistId2: string
 let startState: Array<TodolistType>
 
-beforeEach( () => {
+beforeEach(() => {
     todolistId1 = v1()
     todolistId2 = v1()
     startState = [
-        {id: todolistId1, title: 'What to learn', filter: 'all'},
-        {id: todolistId2, title: 'What to buy', filter: 'all'}
+        { id: todolistId1, title: 'What to learn', filter: 'all' },
+        { id: todolistId2, title: 'What to buy', filter: 'all' }
     ]
 })
 
@@ -36,7 +36,7 @@ test('correct todolist should be added', () => {
 
     expect(endState.length).toBe(3)
     expect(endState[0].title).toBe(newTodolistTitle)
-    expect(endState[0].filter).toBe("all")
+    expect(endState[0].filter).toBe('all')
 })
 
 test('correct todolist should change its name', () => {
