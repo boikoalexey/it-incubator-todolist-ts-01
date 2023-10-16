@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react'
 import './App.css'
-import TodoList from './components/TodoList/TodoList'
+import Todolist from './components/Todolists/Todolist/Todolist'
 import AddItemForm from './components/common/AddItemForm/AddItemForm'
 import { AppBar, IconButton, Toolbar, Typography, Button, Container, Grid, Paper } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
@@ -21,7 +21,7 @@ export type TasksStateType = {
     [key: string]: Array<TaskType>
 }
 
-const AppWithRedux = () => {
+const App = () => {
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
     const dispatch = useDispatch()
 
@@ -71,7 +71,7 @@ const AppWithRedux = () => {
                         todolists.map((tl) => {
                             return <Grid item key={tl.id}>
                                 <Paper style={{ padding: '10px' }}>
-                                    <TodoList
+                                    <Todolist
                                         key={tl.id}
                                         todolistId={tl.id}
                                         title={tl.title}
@@ -90,4 +90,4 @@ const AppWithRedux = () => {
     )
 }
 
-export default AppWithRedux
+export default App

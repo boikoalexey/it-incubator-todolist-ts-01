@@ -1,11 +1,11 @@
 import React from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
-import { ReduxStoreProviderDecorator } from '../../../stories/decorators/ReduxStoreProviderDecorator'
+import { ReduxStoreProviderDecorator } from '../../../../stories/decorators/ReduxStoreProviderDecorator'
 import { Task } from './Task'
 import { useSelector } from 'react-redux'
-import { AppRootStateType } from '../../../state/store'
-import { TaskPriorities, TaskStatuses, TaskType } from '../../../api/todolist-api'
-import { TodolistDomainType } from '../../../state/todolists-reducer'
+import { AppRootStateType } from '../../../../state/store'
+import { TaskPriorities, TaskStatuses, TaskType } from '../../../../api/todolist-api'
+import { TodolistDomainType } from '../../../../state/todolists-reducer'
 
 const meta: Meta<typeof Task> = {
     title: 'TODOLISTS/Task',

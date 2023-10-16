@@ -1,10 +1,10 @@
 import React, { ChangeEvent, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
-import { removeTaskTC, updateTaskTC } from '../../../state/tasks-reducer'
+import { removeTaskTC, updateTaskTC } from '../../../../state/tasks-reducer'
 import { Checkbox, IconButton } from '@material-ui/core'
-import { EditableSpan } from '../../common/EditableSpan/EditableSpan'
+import { EditableSpan } from '../../../common/EditableSpan/EditableSpan'
 import DeleteIcon from '@material-ui/icons/Delete'
-import { TaskStatuses, TaskType } from '../../../api/todolist-api'
+import { TaskStatuses, TaskType } from '../../../../api/todolist-api'
 
 export type TaskPropsType = {
     todolistId: string
