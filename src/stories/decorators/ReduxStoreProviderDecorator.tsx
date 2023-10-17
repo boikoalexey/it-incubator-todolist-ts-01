@@ -6,10 +6,12 @@ import { applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import { tasksReducer } from '../../state/tasks-reducer'
 import { todolistsReducer } from '../../state/todolists-reducer'
+import { appReducer } from '../../app/app-reducer'
 
 const rootReducer = combineReducers({
     tasks: tasksReducer,
-    todolists: todolistsReducer
+    todolists: todolistsReducer,
+    app: appReducer
 })
 
 const initialGlobalState = {}

@@ -3,6 +3,7 @@ import { Button, TextField } from '@material-ui/core'
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
+    disabled?: boolean
 }
 
 const AddItemForm = React.memo((props: AddItemFormPropsType) => {
@@ -36,8 +37,9 @@ const AddItemForm = React.memo((props: AddItemFormPropsType) => {
                 label={'Type title'}
                 error={!!error}
                 helperText={error}
+                disabled={props.disabled}
             />
-            <Button onClick={addTask} variant={'contained'} color="primary">+</Button>
+            <Button onClick={addTask} disabled={props.disabled} variant={'contained'} color="primary">+</Button>
         </div>
     )
 })

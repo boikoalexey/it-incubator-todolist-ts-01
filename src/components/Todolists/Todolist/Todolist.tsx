@@ -9,11 +9,14 @@ import { addTaskTC, fetchTasksTC } from '../../../state/tasks-reducer'
 import { Task } from './Task/Task'
 import { FilterValuesType } from '../../../state/todolists-reducer'
 import { TaskStatuses, TaskType } from '../../../api/todolist-api'
+import { RequestStatusType } from '../../../app/app-reducer'
+import { log } from 'util'
 
 export type TodoListPropsType = {
     todolistId: string
     title: string
     filter: FilterValuesType
+    entityStatus: RequestStatusType
     removeTodoList: (todolistId: string) => void
     changeTodolistTitle: (todolistId: string, newTitle: string) => void
     changeFilter: (todolistId: string, value: FilterValuesType) => void
@@ -66,12 +69,12 @@ const Todolist = React.memo((props: TodoListPropsType) => {
     return (
         <div>
             <h2>
-                <EditableSpan title={props.title} onChangeTitle={changeTodolistTitle}/>
-                <IconButton onClick={removeTodoList} aria-label="delete">
+                <EditableSpan title={props.title} disabled={props.entityStatus === 'loading'} onChangeTitle={changeTodolistTitle}/>
+                <IconButton onClick={removeTodoList} disabled={props.entityStatus === 'loading'} aria-label="delete">
                     <DeleteIcon/>
                 </IconButton>
             </h2>
-            <AddItemForm addItem={addTask}/>
+            <AddItemForm addItem={addTask} disabled={props.entityStatus === 'loading'}/>
             <div>
                 {filteredTasks.length ? filteredTasks.map((task: TaskType) =>
                     <Task

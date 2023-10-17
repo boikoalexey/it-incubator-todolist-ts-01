@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect } from 'react'
+import { ThemeProvider, createTheme } from '@mui/material'
 import './App.css'
-import Todolist from './components/Todolists/Todolist/Todolist'
-import AddItemForm from './components/common/AddItemForm/AddItemForm'
-import { AppBar, IconButton, Toolbar, Typography, Button, Container, Grid, Paper } from '@material-ui/core'
+import Todolist from '../components/Todolists/Todolist/Todolist'
+import AddItemForm from '../components/common/AddItemForm/AddItemForm'
+import { AppBar, IconButton, Toolbar, Typography, Button, Container, Grid, Paper, LinearProgress } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 import {
     addTodolistTC,
@@ -12,17 +13,21 @@ import {
     FilterValuesType,
     removeTodolistTC,
     TodolistDomainType
-} from './state/todolists-reducer'
+} from '../state/todolists-reducer'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppRootStateType } from './state/store'
-import { TaskType } from './api/todolist-api'
+import { AppRootStateType } from '../state/store'
+import { TaskType } from '../api/todolist-api'
+import { ErrorSnackbar } from '../components/common/ErrorSnackbar/ErrorSnackbar'
+import { RequestStatusType } from './app-reducer'
 
 export type TasksStateType = {
     [key: string]: Array<TaskType>
 }
+const theme = createTheme()
 
 const App = () => {
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
+    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
     const dispatch = useDispatch()
 
     useEffect(()=> {
@@ -46,7 +51,8 @@ const App = () => {
     }, [ dispatch ])
 
     return (
-        <div className="App">
+        <ThemeProvider theme={theme}>
+            <ErrorSnackbar/>
             <AppBar position="static">
                 <Toolbar>
                     <IconButton
@@ -61,6 +67,7 @@ const App = () => {
                     </Typography>
                     <Button color="inherit">Login</Button>
                 </Toolbar>
+                {status === 'loading' && <LinearProgress/>}
             </AppBar>
             <Container fixed style={{ marginTop: '50px' }}>
                 <Grid container style={{ margin: '0 0 20px 10px' }}>
@@ -76,6 +83,7 @@ const App = () => {
                                         todolistId={tl.id}
                                         title={tl.title}
                                         filter={tl.filter}
+                                        entityStatus={tl.entityStatus}
                                         removeTodoList={removeTodolist}
                                         changeTodolistTitle={changeTodolistTitle}
                                         changeFilter={changeTodolistFilter}
@@ -86,7 +94,7 @@ const App = () => {
                     }
                 </Grid>
             </Container>
-        </div>
+        </ThemeProvider>
     )
 }
 
