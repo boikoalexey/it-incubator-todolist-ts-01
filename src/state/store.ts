@@ -4,13 +4,15 @@ import { appReducer } from '../app/app-reducer'
 import { combineReducers } from 'redux'
 import { legacy_createStore as createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
+import { authReducer } from '../components/Login/auth-reducer'
 
 // объединяя reducer-ы с помощью combineReducers,
 // мы задаём структуру нашего единственного объекта-состояния
 const rootReducer = combineReducers({
     tasks: tasksReducer,
     todolists: todolistsReducer,
-    app: appReducer
+    app: appReducer,
+    auth: authReducer
 })
 // непосредственно создаём store
 export const store = createStore(rootReducer, applyMiddleware(thunk))

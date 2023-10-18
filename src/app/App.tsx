@@ -1,54 +1,48 @@
 import React, { useCallback, useEffect } from 'react'
 import { ThemeProvider, createTheme } from '@mui/material'
 import './App.css'
-import Todolist from '../components/Todolists/Todolist/Todolist'
-import AddItemForm from '../components/common/AddItemForm/AddItemForm'
-import { AppBar, IconButton, Toolbar, Typography, Button, Container, Grid, Paper, LinearProgress } from '@material-ui/core'
-import MenuIcon from '@material-ui/icons/Menu'
 import {
-    addTodolistTC,
-    changeTodolistFilterAC,
-    changeTodolistTitleTC,
-    fetchTodolistsTC,
-    FilterValuesType,
-    removeTodolistTC,
-    TodolistDomainType
-} from '../state/todolists-reducer'
+    AppBar,
+    IconButton,
+    Toolbar,
+    Typography,
+    Button,
+    Container,
+    LinearProgress,
+    CircularProgress
+} from '@material-ui/core'
+import MenuIcon from '@material-ui/icons/Menu'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppRootStateType } from '../state/store'
-import { TaskType } from '../api/todolist-api'
 import { ErrorSnackbar } from '../components/common/ErrorSnackbar/ErrorSnackbar'
-import { RequestStatusType } from './app-reducer'
+import { initializeAppTC, RequestStatusType } from './app-reducer'
+import { TodolistsList } from '../components/Todolists/TodolistsList'
+import { Route, Routes, Link, Navigate } from 'react-router-dom'
+import { Login } from '../components/Login/Login'
+import { logoutTC } from '../components/Login/auth-reducer'
 
-export type TasksStateType = {
-    [key: string]: Array<TaskType>
-}
 const theme = createTheme()
 
 const App = () => {
-    const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
     const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
+    const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.initialized)
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
     const dispatch = useDispatch()
 
-    useEffect(()=> {
-        dispatch(fetchTodolistsTC())
+    useEffect(() => {
+        dispatch(initializeAppTC())
     }, [])
 
-    const addTodolist = useCallback((title: string) => {
-        dispatch(addTodolistTC(title))
-    }, [ dispatch ])
+    const logoutHandler = useCallback(() => {
+        dispatch(logoutTC())
+    }, [])
 
-    const removeTodolist = useCallback((todolistId: string) => {
-        dispatch(removeTodolistTC(todolistId))
-    }, [ dispatch ])
-
-    const changeTodolistTitle = useCallback((todolistId: string, title: string) => {
-        dispatch(changeTodolistTitleTC(todolistId, title))
-    }, [ dispatch ])
-
-    const changeTodolistFilter = useCallback((todolistId: string, value: FilterValuesType) => {
-        dispatch(changeTodolistFilterAC(todolistId, value))
-    }, [ dispatch ])
+    if (!isInitialized) {
+        return <div
+            style={{ position: 'fixed', top: '30%', textAlign: 'center', width: '100%' }}>
+            <CircularProgress/>
+        </div>
+    }
 
     return (
         <ThemeProvider theme={theme}>
@@ -62,37 +56,17 @@ const App = () => {
                     >
                         <MenuIcon/>
                     </IconButton>
-                    <Typography variant="h6" component="div">
-                        News
-                    </Typography>
-                    <Button color="inherit">Login</Button>
+                    {isLoggedIn && <Button onClick={logoutHandler} color="inherit">Log out</Button>}
                 </Toolbar>
                 {status === 'loading' && <LinearProgress/>}
             </AppBar>
             <Container fixed style={{ marginTop: '50px' }}>
-                <Grid container style={{ margin: '0 0 20px 10px' }}>
-                    <AddItemForm addItem={addTodolist}/>
-                </Grid>
-                <Grid container spacing={5}>
-                    {
-                        todolists.map((tl) => {
-                            return <Grid item key={tl.id}>
-                                <Paper style={{ padding: '10px' }}>
-                                    <Todolist
-                                        key={tl.id}
-                                        todolistId={tl.id}
-                                        title={tl.title}
-                                        filter={tl.filter}
-                                        entityStatus={tl.entityStatus}
-                                        removeTodoList={removeTodolist}
-                                        changeTodolistTitle={changeTodolistTitle}
-                                        changeFilter={changeTodolistFilter}
-                                    />
-                                </Paper>
-                            </Grid>
-                        })
-                    }
-                </Grid>
+                <Routes>
+                    <Route path="/" element={<TodolistsList/>}></Route>
+                    <Route path="/login" element={<Login/>}></Route>
+                    <Route path="/404" element={<h1>404: PAGE NOT FOUND</h1>} />
+                    <Route path="*" element={<Navigate to="/404"/>} />
+                </Routes>
             </Container>
         </ThemeProvider>
     )

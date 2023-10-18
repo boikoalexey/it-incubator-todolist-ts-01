@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { RequestStatusType } from '../app/app-reducer'
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.1/',
@@ -10,6 +9,20 @@ const instance = axios.create({
 })
 
 // api
+export const authAPI = {
+    me() {
+        return instance.get<ResponseType<{id: number, email: string, login: string}>>('/auth/me/')
+    },
+
+    login(payload: LoginParamsType) {
+        return instance.post<ResponseType<{ userId?: number }>>('/auth/login/', payload)
+    },
+
+    logout() {
+        return instance.delete<ResponseType>('/auth/login/')
+    }
+}
+
 export const todolistAPI = {
     getTodolist() {
         return instance.get<Array<TodolistType>>('todo-lists/')
@@ -45,6 +58,12 @@ export const todolistAPI = {
 }
 
 // types
+export type LoginParamsType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha?: string
+}
 export type TodolistType = {
     id: string
     title: string
@@ -94,3 +113,4 @@ export type UpdateTaskModelType = {
     startDate: string
     deadline: string
 }
+

@@ -2,7 +2,6 @@ import { todolistAPI, TodolistType } from '../api/todolist-api'
 import { Dispatch } from 'react'
 import {
     RequestStatusType,
-    setAppErrorAC,
     SetAppErrorActionType,
     setAppStatusAC,
     SetAppStatusActionType

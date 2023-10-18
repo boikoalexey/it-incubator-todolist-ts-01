@@ -10,7 +10,6 @@ import { Task } from './Task/Task'
 import { FilterValuesType } from '../../../state/todolists-reducer'
 import { TaskStatuses, TaskType } from '../../../api/todolist-api'
 import { RequestStatusType } from '../../../app/app-reducer'
-import { log } from 'util'
 
 export type TodoListPropsType = {
     todolistId: string

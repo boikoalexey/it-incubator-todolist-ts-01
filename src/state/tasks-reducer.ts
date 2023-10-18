@@ -1,4 +1,3 @@
-import { TasksStateType } from '../app/App'
 import { AddTodolistActionType, RemoveTodolistActionType, SetTodolistsActionType } from './todolists-reducer'
 import { TaskPriorities, TaskStatuses, TaskType, todolistAPI, UpdateTaskModelType } from '../api/todolist-api'
 import { Dispatch } from 'react'
@@ -115,6 +114,9 @@ export const updateTaskTC = (todolistId: string, taskId: string, domainModel: Up
 }
 
 // types
+export type TasksStateType = {
+    [key: string]: Array<TaskType>
+}
 type ActionType =
     | ReturnType<typeof addTaskAC>
     | ReturnType<typeof removeTaskAC>
